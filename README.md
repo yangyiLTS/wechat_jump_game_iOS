@@ -1,11 +1,12 @@
-感谢来自 @神奇的战士 的跳跃距离算法
+感谢来自 [wangshub](https://github.com/wangshub "wangshub") 的跳跃距离算法
 
 原项目地址：[wangshub/wechat_jump_game](https://github.com/wangshub/wechat_jump_game "https://github.com/wangshub/wechat_jump_game")
 
 知乎专栏：[教你用Python来玩微信跳一跳](https://zhuanlan.zhihu.com/p/32452473 "教你用Python来玩微信跳一跳")
 
-本项目源码：
-[yangyiLTS/wechat_jump_game_iOS](https://github.com/yangyiLTS/wechat_jump_game_iOS)
+----------
+
+本项目知乎专栏：[python玩“跳一跳” iOS+Win版](https://zhuanlan.zhihu.com/p/32526110 "python玩“跳一跳” iOS+Win版")
 
 目前已有的iOS跳一跳辅助需要macOS环境下的WebDriverAgentRunner。而现在介绍的方法在Windows环境下通过物理方法实现，不需要macOS也不需要越狱。
 
@@ -34,9 +35,8 @@
 
 4. 将按压时间发送至树莓派，树莓派控制舵机点击手机屏幕
 
-# 原理 & 步骤 #
 
-----------
+# 原理 & 步骤 #
 
 ## 舵机 & 控制器 部分 ##
 
