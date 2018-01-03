@@ -11,7 +11,7 @@ import socket
 # =================================
 #   使用Arduino需要取消下面一句的注释
 #
-from servo_control_arduino import arduino_servo_run
+#from servo_control_arduino import arduino_servo_run
 #
 #
 # =================================
@@ -128,6 +128,7 @@ def find_board(img,piece_x,piece_y):
     for i in range(piece_y - 120, piece_y + 10):
         for j in range(piece_x - 22, piece_x + 22):
             img_canny[i][j] = 0
+
     img_canny[:,:2] = 0
     board_y_top = under_game_score_y
 
@@ -192,10 +193,10 @@ def find_board(img,piece_x,piece_y):
     if result == 0:
         board_y = piece_y - abs(board_x - piece_x) * math.sqrt(3) / 3
         result = 1
-        print("return by old")
+        # print("return by old")
 
 
-    print('result:  %d' % result)
+    # print('result:  %d' % result)
     return board_x, board_y, result
 
 
@@ -219,10 +220,10 @@ def main():
         backup_screenshot2(filename, ts)
 
         # send_time() 为树莓派控制函数
-        # send_time(t)
+        send_time(t)
 
         # arduino_servo_run () 为arduino控制函数
-        arduino_servo_run(t/1000)
+        ##arduino_servo_run(t/1000)
 
 
         time.sleep(2 + result)
