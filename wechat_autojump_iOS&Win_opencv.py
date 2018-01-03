@@ -1,21 +1,35 @@
-# coding: utf-8
+#  -*- coding: utf-8 -*-
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 import os
 import shutil
 import time
 import math
 from PIL import Image, ImageDraw, ImageGrab
-import random
-import json
 import socket
+
+# =================================
+#   使用Arduino需要取消下面一句的注释
+#
+from servo_control_arduino import arduino_servo_run
+#
+#
+# =================================
+
+
+# =================================
+#  使用树莓派需要设置ip地址
+#
+ip_addr = '192.168.199.181'
+#
+#
+# ================================
 
 # Magic Number，不设置可能无法正常执行，请根据具体截图从上到下按需设置
 under_game_score_y = 170  # 截图中刚好低于分数显示区域的 Y 坐标
-press_coefficient = 2.36 # 长按的时间系数，
+press_coefficient = 2.39 # 长按的时间系数，
 piece_base_height_1_2 = 10  # 二分之一的棋子底座高度，可能要调节
-ip_addr = '192.168.199.181' # ip地址设置
+
 w,h = 610,1080
 
 special_board = ['music_player.png','cesspool.png'] # 有加分的目标
@@ -30,7 +44,12 @@ if not os.path.isdir(screenshot_backup_dir):
     os.mkdir(screenshot_backup_dir)
 
 method = 'cv2.TM_CCORR_NORMED'
-meth = eval(method)
+meth = eval('cv2.TM_CCORR_NORMED')
+
+
+
+
+
 
 # 使用PIL库截取Windows屏幕
 def pull_screenshot():
@@ -64,10 +83,11 @@ def save_debug_creenshot(ts, im, piece_x, piece_y, board_x, board_y):
     del draw
     im.save("{}{}_d.png".format(screenshot_backup_dir, ts))
 
+# 模板匹配 获取棋子坐标
 def find_piece(img):
     res = cv2.matchTemplate(img, piece_template, meth)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-    piece_x, piece_y = cv2.minMaxLoc(res)[3]
+    piece_x, piece_y = max_loc
     piece_x = int(piece_x + piece_w / 2)
     piece_y = piece_y + piece_h - piece_base_height_1_2
     return piece_x, piece_y
@@ -95,15 +115,15 @@ def find_board(img,piece_x,piece_y):
 
     img2 = cv2.GaussianBlur(img2, (3, 3), 0)
     img_canny = cv2.Canny(img2, 1, 10)
-    res = cv2.matchTemplate(img_canny, white_point_template, eval(method))
 
-    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-    if max_val > 0.9:
-        board_x = max_loc[0] + 22
-        board_y = max_loc[1] + 22
-        result = 1
-        print('white_point_val:  %f' % max_val)
-        return board_x, board_y, result
+    # res = cv2.matchTemplate(img_canny, white_point_template, eval(method))
+    # min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+    # if max_val > 0.9:
+    #     board_x = max_loc[0] + 22
+    #     board_y = max_loc[1] + 22
+    #     result = 1
+    #     print('white_point_val:  %f' % max_val)
+    #     return board_x, board_y, result
 
     for i in range(piece_y - 120, piece_y + 10):
         for j in range(piece_x - 22, piece_x + 22):
@@ -113,6 +133,7 @@ def find_board(img,piece_x,piece_y):
 
     # cv2.imwrite('c2.png',img_canny)
     for i in img_canny[under_game_score_y:]:
+        # i是一整行像素的list，max返回最大值，一旦最大值存在，则找到了board_y_top
         if max(i):
             break
         board_y_top += 1
@@ -136,11 +157,11 @@ def find_board(img,piece_x,piece_y):
                 board_y += 1
                 if fail_count < 5 and fail_count != 0:
                     fail_count -= 1
-            elif fail_count > 5 and board_y - board_y_bottom >10:
+            elif fail_count > 6 and board_y - board_y_bottom >10:
                 result = 1
-                board_y -= 3
+                board_y -= 1
                 break
-            elif fail_count > 5 and board_y - board_y_bottom <= 10:
+            elif fail_count > 6 and board_y - board_y_bottom <= 10:
                 result = 0
                 break
 
@@ -158,11 +179,11 @@ def find_board(img,piece_x,piece_y):
                 board_y += 1
                 if fail_count < 5 and fail_count != 0:
                     fail_count -= 1
-            elif fail_count > 5 and board_y - board_y_bottom > 10:
-                board_y -= 3
+            elif fail_count > 6 and board_y - board_y_bottom > 10:
+                board_y -= 1
                 result = 1
                 break
-            elif fail_count > 5 and board_y - board_y_bottom <= 10:
+            elif fail_count > 6 and board_y - board_y_bottom <= 10:
                 result = 0
                 break
             else:
@@ -182,7 +203,7 @@ def find_board(img,piece_x,piece_y):
 def main():
     while True:
         pull_screenshot()
-        filename = '.png'
+        filename = 'a.png'
         img = cv2.imread(filename,0)
         img2 = Image.open(filename)
 
@@ -197,9 +218,15 @@ def main():
         save_debug_creenshot(ts, img2, piece_x, piece_y, board_x, board_y)
         backup_screenshot2(filename, ts)
 
-        send_time(t)
+        # send_time() 为树莓派控制函数
+        # send_time(t)
+
+        # arduino_servo_run () 为arduino控制函数
+        arduino_servo_run(t/1000)
+
+
         time.sleep(2 + result)
-        # break
+
 
 
 
