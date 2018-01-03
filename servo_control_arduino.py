@@ -10,7 +10,6 @@ import time
 
 # 设置舵机的高点和低点  单位：角度
 # 范围 0-180°
-
 servo_high = 45
 servo_low = 37
 
@@ -34,5 +33,6 @@ def arduino_servo_run(t):
     time.sleep(t)
     servo_pin.write(servo_high)
 
-
-
+if __name__ == '__main__':
+    for i in range(3):
+        arduino_servo_run(1)

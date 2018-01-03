@@ -132,7 +132,7 @@ def find_piece_and_board(im):
             if abs(j - piece_x) < piece_body_width:
                 continue
 
-            # 修掉圆顶的时候一条线导致的小 bug，这个颜色判断应该 OK，暂时不提出来
+    # 修掉圆顶的时候一条线导致的小 bug，这个颜色判断应该 OK，暂时不提出来i
             if abs(pixel[0] - last_pixel[0]) + abs(pixel[1] - last_pixel[1]) + abs(pixel[2] - last_pixel[2]) > 20:
                 board_x_sum += j
                 board_x_c += 1

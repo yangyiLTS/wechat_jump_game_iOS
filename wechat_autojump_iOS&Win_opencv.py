@@ -219,10 +219,10 @@ def main():
         save_debug_creenshot(ts, img2, piece_x, piece_y, board_x, board_y)
         backup_screenshot2(filename, ts)
 
-        # send_time() 为树莓派控制函数
+        # #send_time() 为树莓派控制函数
         send_time(t)
 
-        # arduino_servo_run () 为arduino控制函数
+        # #arduino_servo_run() 为arduino控制函数
         ##arduino_servo_run(t/1000)
 
 
