@@ -22,10 +22,6 @@ import socket
 # 最后：根据两点的坐标算距离乘以系数来获取长按时间（似乎可以直接用 X 轴距离）
 
 
-
-with open('config.json', 'r') as f:
-    config = json.load(f)
-
 # Magic Number，不设置可能无法正常执行，请根据具体截图从上到下按需设置
 under_game_score_y = 170  # 截图中刚好低于分数显示区域的 Y 坐标，300 是 1920x1080 的值，2K 屏、全面屏请根据实际情况修改
 press_coefficient = 2.43 # 长按的时间系数，请自己根据实际情况调节
