@@ -1,3 +1,10 @@
+**算法部分已经更新，也加入了arduino版本，这篇文档写的比较乱，稍后再改。**
+
+如需参考请移步知乎[python玩“跳一跳” iOS+Win版 硬件实现](https://zhuanlan.zhihu.com/p/32526110 "python玩“跳一跳” iOS+Win版")
+
+
+----------
+
 感谢来自 [wangshub](https://github.com/wangshub "wangshub") 的跳跃距离算法
 
 原项目地址：[wangshub/wechat_jump_game](https://github.com/wangshub/wechat_jump_game "https://github.com/wangshub/wechat_jump_game")
