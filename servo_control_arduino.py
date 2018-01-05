@@ -17,10 +17,10 @@ servo_low = 37
 serial_int = 'COM3'
 
 # 如果是Arduino UNO 使用这一条
-board = pyfirmata.Arduino(serial_int)
+# board = pyfirmata.Arduino(serial_int)
 
 # 如果是Arduino Mega 使用这一条 pyfirmata库暂不支持Nano
-# board = pyfirmata.ArduinoMega(serial_int)
+board = pyfirmata.ArduinoMega(serial_int)
 
 servo_pin = board.get_pin('d:3:s') # 使用3号输出口  可以自行调整
 iter8 = pyfirmata.util.Iterator(board)
@@ -30,9 +30,10 @@ servo_pin.write(servo_high)
 # 舵机控制函数
 def arduino_servo_run(t):
     servo_pin.write(servo_low)
-    time.sleep(t)
+    time.sleep(t+0.05)
     servo_pin.write(servo_high)
 
 if __name__ == '__main__':
     for i in range(3):
         arduino_servo_run(1)
+        time.sleep(2)
