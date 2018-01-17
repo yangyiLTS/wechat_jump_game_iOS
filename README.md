@@ -61,9 +61,11 @@
 ## 关于Arduino ##
 
  1. 因为pyfrimata库不支持Arduino Nano，请选择Arduino UNO或Arduino Mega。并根据Arduino的型号使用下列语句。
+```
+board = pyfirmata.Arduino(serial_int)
 
-    board = pyfirmata.Arduino(serial_int)
-    board = pyfirmata.ArduinoMega(serial_int)
+board = pyfirmata.ArduinoMega(serial_int)
+```
 
  2. 烧入预置的StandardFirmata程序。
 
