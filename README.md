@@ -1,8 +1,9 @@
-感谢来自 [wangshub](https://github.com/wangshub "wangshub") 的跳跃距离算法，原项目地址：[wangshub/wechat_jump_game](https://github.com/wangshub/wechat_jump_game)
 
-知乎专栏：[教你用Python来玩微信跳一跳](https://zhuanlan.zhihu.com/p/32452473)
+> 感谢来自 [wangshub](https://github.com/wangshub "wangshub") 的跳跃距离算法，原项目地址：[wangshub/wechat_jump_game](https://github.com/wangshub/wechat_jump_game)
+> 
+``知乎专栏：[教你用Python来玩微信跳一跳](https://zhuanlan.zhihu.com/p/32452473)
 
-----------
+新开了个人博客：[洋溢着温暖的微笑](https://www.yangyilts.com/) 欢迎围观~
 
 本项目知乎专栏：[python玩“跳一跳” iOS+Win版](https://zhuanlan.zhihu.com/p/32526110)
 
